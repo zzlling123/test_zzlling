@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.ebook_web.dao.EbookMapper">
+    <select id="getEbooks" resultType="Entry">
+        select * from entry
+        <where>
+            <if test="categoryId!=null and !''.equals(categoryId)">
+                and categoryId=#{categoryId}
+            </if>
+        </where>
+        limit #{limit1},#{limit2};
+    </select>
+    <!-- 查询图书数量 -->
+    <select id="getEbookCount" parameterType="String" resultType="int">
+        select count(1) from entry
+        <where>
+            <if test="categoryId!=null and !''.equals(categoryId)">
+                and categoryId=#{categoryId}
+            </if>
+        </where>
+    </select>
+    <!-- 查询分类 -->
+    <select id="getCategorys" resultType="Category">
+		select * from category
+	</select>
+    <!--增加 -->
+    <insert id="add" parameterType="Entry">
+        insert into (categoryId,title,summary,uploaduser,createdate)
+        values (#{categoryId},#{title},#{summary},#{uploaduser},#{createdate})
+    </insert>
+    <!--修改 -->
+    <update id="update">
+        update entry set categoryId=#{categoryId},title=#{title},
+            summary=#{summary},uploaduser=#{uploaduser},createdate=#{createdate}
+            where id=#{id}
+    </update>
+    <!-- 删除-->
+    <delete id="delete" parameterType="int">
+        delete * from entry where id=#{id}
+    </delete>
+    <!--根据ID查询 -->
+    <select id="getEntry" parameterType="int" resultType="Entry">
+        select * from entry where id=#{id};
+    </select>
+</mapper>

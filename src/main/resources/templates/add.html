@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1px solid">
+    <tr><td colspan="2" align="center"><h1>增加电子图书</h1></td></tr>
+    <tr><td>图书分类</td><td><input type="text"/></td></tr>
+    <tr><td>图书名称(*)</td><td><input type="text"/></td></tr>
+    <tr><td>图书摘要</td><td><input type="textarea"/></td></tr>
+    <tr><td>上传人</td><td><input type="text"/></td></tr>
+    <tr><td>上传时间(*)</td><td><input type="text"/>(yyyy-MM-dd)</td></tr>
+    <tr><td colspan="2" align="center">
+        <a th:href="@{/addSave}">提交</a>nbsp;nbsp;<a th:href="@{/list.html}">返回</a>
+    </td></tr>
+</table>
+</body>
+</html>

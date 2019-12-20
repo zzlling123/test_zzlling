@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" th:src="@{/js/jquery-1.8.3.min.js}"/>
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        function fn123(obj) {
+            alert(123);
+            var pagenum=$(obj).attr("min");
+            var totalPage=$(obj).attr("max");
+            fn1(pagenum,totalPage);
+        }
+        function fn1(pagenum,totalPage){
+            if(pagenum>totalPage){
+                pagenum = totalPage;
+            }else if(pagenum<=0){
+                pagenum=1;
+            }
+            $("#currentPage").val(pagenum);
+            $("form").submit();
+        }
+        /*]]>*/
+    </script>
+</head>
+<body>
+<form action="/list">
+    图书分类：
+    <select>
+        <option th:each="arrt,status:${arr}" th:value="${status}"><span th:text="${arrt.getName()}"/></option>
+    </select>
+    <input type="submit" value="查询">
+    <input type="hidden" name="currentPage" id="currentPage">
+    <a th:href="@{/add.html}">新增电子图书</a>
+    <table border="1px solid">
+        <tr><td colspan="6" align="center"><h1>电子图书列表</h1></td></tr>
+        <tr><td>图书编号</td><td>图书名称</td><td>图书摘要</td><td>上传人</td><td>上传时间</td><td>操作</td></tr>
+        <tr th:each="entry,status:${list}">
+            <td th:text="${entry.getId()}">
+            <td th:text="${entry.getTitle()}">
+            <td th:text="${entry.getSummary()}">
+            <td th:text="${entry.getUploaduser()}">
+            <td th:text="${#dates.format(entry.getCreatedate(),'yyyy-MM-dd')}">
+            <td>
+                <a th:href="@{/update.html}">修改</a>
+                <a th:href="@{/delete}">删除</a>
+            </td>
+        </tr>
+    </table><br><br><br>
+    <hr>
+    <a href="#" th:min="1" th:max="${totalPage}" onclick="fn123(this)">首页</a>
+    <a href="#" th:min="${currentPage}-1" th:max="${totalPage}" onclick="fn123(this);">上一页</a>
+    <a href="#" th:min="${currentPage}+1" th:max="${totalPage}" onclick="fn123(this);">下一页</a>
+    <a href="#" th:min="${totalPage}" th:max="${totalPage}" onclick="fn123(this)">末页</a>
+    第<span th:text="${currentPage}"/>/<span th:text="${totalPage}"/>页
+</form>
+</body>
+</html>
