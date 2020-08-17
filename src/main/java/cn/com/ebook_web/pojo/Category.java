@@ -1,7 +1,7 @@
 package cn.com.ebook_web.pojo;
 
 /**
- * asfdadsfasf
+ * asfdadsfasfqerqewr
  */
 public class Category {
     private int id;

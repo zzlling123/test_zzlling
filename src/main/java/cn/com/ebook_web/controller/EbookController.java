@@ -44,7 +44,7 @@ public class EbookController {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         String date=sf.format(entry.getCreatedate());
         if(date==null||"".equals(date)){
-            model.addAttribute("error","上传时间abcdfadsfsadf不能为空！");
+            model.addAttribute("error","上传时间不能为空！");
             return "redirect:/add.html";
         }
         if(ebookServiceImpl.add(entry)>0){
